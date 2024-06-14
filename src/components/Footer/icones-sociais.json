@@ -1,0 +1,33 @@
+[
+    {
+      "path": "/images/footer/facebook.png",
+      "alt": "Ícone do facebook",
+      "url":"",
+      "id": 1
+    },
+    {
+      "path": "/images/footer/instagram.png",
+      "alt": "Ícone do instagram",
+      "url":"",
+      "id": 2
+    },
+    {
+      "path": "/images/footer/x.png",
+      "alt": "Ícone do x",
+      "url":"",
+      "id": 3
+    },
+    {
+      "path": "/images/footer/linkedin.png",
+      "alt": "Ícone do linkedin",
+      "url":"https://www.linkedin.com/in/lucastsilva-dev/",
+      "id": 4
+    },
+    {
+      "path": "/images/footer/github.png",
+      "alt": "Ícone do facebook",
+      "url":"https://github.com/LucasSst",
+      "id": 5
+    }
+  ]
+  

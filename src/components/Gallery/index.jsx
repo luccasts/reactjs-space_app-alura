@@ -21,18 +21,19 @@ const ContainerImages = styled.ul `
 `
 
 
-const Gallery = ({photos = [], onChangePhotoSelected, onChangeAlpha }) => {
+const Gallery = ({photos = [], onChangePhotoSelected, onChangeFavorite, handleCategory }) => {
     return (
         <>
-            <Tags />
+            <Tags handleCategory={(search) => handleCategory(search)} />
             <ContainerGallery>
                 <FluidSession>
                     <Title>Navegue pela galeria</Title>
                     <ContainerImages>
-                        {photos.map( foto => 
-                        <li  key={foto.id}>
+                        {photos.map( photo => 
+                        <li  key={photo.id}>
                             <Image 
-                                photos={foto} 
+                                onChangeFavorite={onChangeFavorite}
+                                photo={photo} 
                                 onChangeZoomRequested={onChangePhotoSelected}
                             />
                         </li>

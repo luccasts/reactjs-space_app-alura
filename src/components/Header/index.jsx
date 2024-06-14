@@ -9,11 +9,11 @@ const StylizedHeader = styled.header`
         max-width:212px;
     }
 `
-const Header = () => {
+const Header = ({handleSearch}) => {
     return (
     <StylizedHeader>
         <img src="/images/logo.png" alt="Imagem do logo do site"/>
-        <TextField />
+        <TextField handleSearch={(search) => handleSearch(search)}/>
     </StylizedHeader>
 )
 }

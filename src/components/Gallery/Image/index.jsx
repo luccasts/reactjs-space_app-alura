@@ -1,16 +1,16 @@
-import favorite from '../../../../public/icones/favorito.png'
+
 import expand from '../../../../public/icones/expandir.png'
 import styled from 'styled-components'
 
 const StylizedFigure = styled.figure`
-    width: ${(props) => (props.$expanded ? '90%' : '460px')};
+    width: ${(props) => (props.$expanded ? '100%' : '460px')};
     margin:0;
     display:flex;
     flex-direction:column;
     color:#fff;
     
     & > img{   
-        min-height: 256px;
+        height:${(props) => (props.$expanded ? '100%' : '256px')};
         border-radius:20px 20px 0px 0px ;
     }
     h3{
@@ -51,18 +51,20 @@ const StylizedButton = styled.div`
     gap:8px;
 `
 
-const Image = ({photos, expanded = false, onChangeZoomRequested}) => {
+const Image = ({photo, expanded = false, onChangeZoomRequested, onChangeFavorite}) => {
+    const favoriteIcone = photo.favorita ? '/icones/favorito-ativo.png' : '/icones/favorito.png';   
 
     return (
         <StylizedFigure $expanded={expanded}>
-            <img src={photos.path}  alt="photo"/>
+            <img src={photo.path}  alt="photo"/>
             <StylizedFigCaption>
-                <h3>{photos.titulo}</h3>
+                <h3>{photo.titulo}</h3>
                 <SylizedFooter>
-                    <p>{photos.fonte}</p>
+                    <p>{photo.fonte}</p>
                     <StylizedButton>
-                        <button><img src={favorite} alt="Imagem de um ícone de coração"/></button>
-                        <button onClick={() => onChangeZoomRequested(photos)}><img src={expand} alt="Imagem de um ícone de expandir"/></button>
+                       
+                        <button onClick={() => onChangeFavorite(photo)}><img src={favoriteIcone} alt="Imagem de um ícone de coração"/></button>
+                        { expanded ? "" :<button onClick={() => onChangeZoomRequested(photo)}><img src={expand} alt="Imagem de um ícone de expandir"/></button>}
                     </StylizedButton>
                 </SylizedFooter>
             </StylizedFigCaption>

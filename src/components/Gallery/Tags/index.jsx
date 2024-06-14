@@ -35,12 +35,12 @@ const ContainerTags = styled.div`
 `
 
 
-const Tags = () => {
+const Tags = ( {handleCategory}) => {
     return (
         <ContainerTags>
             <p>Busque por tags:</p>
             <StylizedTags>
-                {tags.map(tag => <button key={tag.id}>{tag.titulo}</button>)}
+                {tags.map(tag => <button onClick={() => handleCategory(tag.id)} key={tag.id}>{tag.titulo}</button>)}
             </StylizedTags>
         </ContainerTags>
     )

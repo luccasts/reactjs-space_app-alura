@@ -8,6 +8,7 @@ import Gallery from "./components/Gallery";
 import photos from "./photos.json"
 import { useState } from "react";
 import ModalZoom from "./components/ModalZoom";
+import Footer from "./components/Footer";
 const GradientBackground = styled.div`
     background: linear-gradient(174.61deg, #041833 4.16%, #04244F 48%, #154580 96.76%);
     width:100%;
@@ -30,24 +31,71 @@ const GalleryContent = styled.section`
   flex-grow:1;
   gap:32px;
 `
+
 function App() {
 
   const [photosGallery, setPhotosGallery] = useState(photos)
   const [selectedPhoto, setSelectedPhoto] = useState(null)
+  const [search, setSearch] = useState()
+  const [category, setCategory] = useState(photos)
+
+
+  const handleSearch = (v) => {
+    console.log(v)
+    if(v === ""){
+      setPhotosGallery(photos)
+      setSearch(photos)
+    }else {
+      setSearch(photos.filter((photo) => photo.titulo === v ))
+      setPhotosGallery(search)
+    }
+  }
+
+  const handleCategory = (v) => {
+    if(v === 0) {
+      setCategory(photos)
+      setPhotosGallery(category)
+    }else {
+      setCategory(photos.filter((s) => s.tagId === v))
+      setPhotosGallery(category)
+    }
+  
+  };
+
+  
+  const onChangeFavorite = (photo) => {
+    if(photo.id  === selectedPhoto?.id) {
+      setSelectedPhoto({
+        ...selectedPhoto,
+        favorita: !selectedPhoto.favorita
+      })
+    }
+    setPhotosGallery(photosGallery.map(photoGallery => {
+      return {
+        ...photoGallery,
+        favorita: photoGallery.id === photo.id ? !photo.favorita : photoGallery.favorita
+      }
+    }))
+  }
   return (
    <GradientBackground>
     <GlobalStyles/>
     <AppContainer>
-      <Header/>
+      <Header handleSearch={(v) => handleSearch(v)}/>
       <MainContainer>
         <SideBar/>
         <GalleryContent>
           <Banner texto="A galeria mais completa de fotos do espaço!" backgroundImage={bannerImage}/>
-          <Gallery onChangePhotoSelected={photo => setSelectedPhoto(photo)} photos={photosGallery}/>
+          <Gallery handleCategory={(v) =>handleCategory(v)} onChangeFavorite={onChangeFavorite} onChangePhotoSelected={photo => setSelectedPhoto(photo)} photos={photosGallery}/>
         </GalleryContent>
       </MainContainer>
-      <ModalZoom  photo={selectedPhoto}/>
+      <ModalZoom 
+        onChangeClose={() => setSelectedPhoto(null)}  
+        photo={selectedPhoto}
+        onChangeFavorite={onChangeFavorite}
+      />
     </AppContainer>
+    <Footer/>
     
    </GradientBackground> 
   )
